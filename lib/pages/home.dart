@@ -1,5 +1,5 @@
-import 'package:chat_ui/models/message.dart';
-import 'package:chat_ui/pages/chat.dart';
+import 'package:chat_ui/widgets/favorite_contacts.dart';
+import 'package:chat_ui/widgets/recent_chats.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,6 +14,7 @@ class HomePage extends HookWidget {
     final int selectIndex = useProvider(selectMenuProvider).state;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
         title: Text("Chat App"),
@@ -43,7 +44,7 @@ class HomePage extends HookWidget {
                         color: index == selectIndex
                             ? Colors.white
                             : Colors.white60,
-                        fontSize: 22.0,
+                        fontSize: 20.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -52,64 +53,17 @@ class HomePage extends HookWidget {
               },
             ),
           ),
-          Container(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0),
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Colors.amber[50],
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0))),
               child: Column(
                 children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Favorite contacts",
-                            style: TextStyle(
-                              color: Colors.blueGrey,
-                              fontSize: 18.0,
-                            )),
-                        IconButton(
-                            icon: Icon(Icons.more_horiz), onPressed: () {})
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: 120.0,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: favorites.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () => Navigator.push(context,
-                                MaterialPageRoute(builder: (_) => ChatPage())),
-                            child: Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 6.0),
-                                  Container(
-                                    width: 60.0,
-                                    height: 60.0,
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            fit: BoxFit.fill,
-                                            image: AssetImage(
-                                                favorites[index].imageUrl))),
-                                  ),
-                                  Text(
-                                    favorites[index].name,
-                                    style: TextStyle(
-                                      color: Colors.blueGrey,
-                                      fontSize: 16.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
+                  FavoriteContacts(),
+                  RecentChats(),
                 ],
               ),
             ),
