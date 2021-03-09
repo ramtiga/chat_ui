@@ -1,11 +1,12 @@
 import 'package:chat_ui/models/user.dart';
+import 'package:flutter/material.dart';
 
 class Message {
-  final User sender;
-  final String time;
-  final String text;
-  final bool isLiked;
-  final bool unread;
+  User sender;
+  String time;
+  String text;
+  bool isLiked;
+  bool unread;
 
   Message({this.sender, this.time, this.text, this.isLiked, this.unread});
 }
@@ -73,45 +74,54 @@ List<Message> chats = [
 
 List<Message> messages = [
   Message(
-    sender: user4,
+    sender: user1,
     time: '5:39 PM',
-    text: 'Hey, how\'s it going? What did you do today?',
+    text: 'OK！またよるにー',
     isLiked: true,
     unread: true,
   ),
   Message(
     sender: currentUser,
     time: '4:28 PM',
-    text: 'Just walked my doge. She was super duper cute. The best pupper!!',
+    text: '駅に20時くらいどう？',
     isLiked: false,
     unread: true,
   ),
   Message(
-    sender: user7,
+    sender: user1,
     time: '3:45 PM',
-    text: 'How\'s the doggo?',
+    text: '何時くらいにしようか',
     isLiked: false,
     unread: true,
   ),
   Message(
-    sender: user2,
+    sender: user1,
     time: '3:15 PM',
-    text: 'All the food',
+    text: 'じゃあ夜にごはんいこうか',
     isLiked: true,
     unread: true,
   ),
   Message(
     sender: currentUser,
     time: '2:30 PM',
-    text: 'Nice! What kind of food did you eat?',
+    text: '今日は仕事だけど夜はあいてるよ',
     isLiked: false,
     unread: true,
   ),
   Message(
-    sender: user5,
+    sender: user1,
     time: '2:00 PM',
-    text: 'I ate so much food today.',
+    text: '今日は何してる？',
     isLiked: false,
     unread: true,
   ),
 ];
+
+class MessageChangeNotifier with ChangeNotifier {
+  List<Message> msgs = messages;
+
+  void changeLike(Message msg) {
+    msg.isLiked ? msg.isLiked = false : msg.isLiked = true;
+    notifyListeners();
+  }
+}

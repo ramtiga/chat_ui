@@ -6,9 +6,6 @@ final selectMenuProvider = StateProvider((ref) => 0);
 
 void main() {
   runApp(ProviderScope(child: MyApp()));
-  //runApp(
-  //  ProviderScope(child: MyApp()),
-  //);
 }
 
 class MyApp extends StatelessWidget {
