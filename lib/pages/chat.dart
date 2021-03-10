@@ -12,6 +12,7 @@ class ChatPage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final messageChats = useProvider(chatProvider);
+    final sendMessage = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(
@@ -99,14 +100,14 @@ class ChatPage extends HookWidget {
                           children: [
                             msg,
                             IconButton(
-                                icon: message.isLiked
-                                    ? Icon(
-                                        Icons.favorite,
-                                        color: Colors.red,
-                                      )
-                                    : Icon(Icons.favorite_border),
-                                onPressed: () =>
-                                    messageChats.changeLike(message)),
+                              icon: message.isLiked
+                                  ? Icon(
+                                      Icons.favorite,
+                                      color: Colors.red,
+                                    )
+                                  : Icon(Icons.favorite_border),
+                              onPressed: () => messageChats.changeLike(message),
+                            ),
                           ],
                         );
                       }),
@@ -126,6 +127,7 @@ class ChatPage extends HookWidget {
                       onPressed: () {}),
                   Expanded(
                     child: TextField(
+                      controller: sendMessage,
                       textCapitalization: TextCapitalization.sentences,
                       onChanged: (value) {},
                       decoration: InputDecoration.collapsed(
@@ -137,7 +139,11 @@ class ChatPage extends HookWidget {
                       icon: Icon(Icons.send),
                       iconSize: 25.0,
                       color: Colors.indigo,
-                      onPressed: () {})
+                      onPressed: () {
+                        messageChats.sendMessage(sendMessage.text);
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        sendMessage.clear();
+                      }),
                 ],
               ),
             ),

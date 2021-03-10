@@ -124,4 +124,21 @@ class MessageChangeNotifier with ChangeNotifier {
     msg.isLiked ? msg.isLiked = false : msg.isLiked = true;
     notifyListeners();
   }
+
+  void sendMessage(String sendMessage) {
+    Message msg = Message();
+    DateTime now = DateTime.now();
+    String time = now.hour.toString() + ":" + now.minute.toString();
+    now.hour < 12 ? time += " AM" : time += " PM";
+
+    msg.sender = currentUser;
+    msg.text = sendMessage;
+    msg.time = time;
+    msg.isLiked = false;
+    msg.unread = false;
+
+    msgs.insert(0, msg);
+
+    notifyListeners();
+  }
 }
