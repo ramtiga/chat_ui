@@ -130,6 +130,11 @@ class ChatPage extends HookWidget {
                       controller: sendMessage,
                       textCapitalization: TextCapitalization.sentences,
                       onChanged: (value) {},
+                      onSubmitted: (value) {
+                        messageChats.sendMessage(sendMessage.text);
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        sendMessage.clear();
+                      },
                       decoration: InputDecoration.collapsed(
                         hintText: 'Send a message...',
                       ),
