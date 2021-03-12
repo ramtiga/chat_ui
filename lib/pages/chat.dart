@@ -16,9 +16,19 @@ class ChatPage extends HookWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          user.name,
-          style: TextStyle(fontWeight: FontWeight.bold),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircleAvatar(
+              backgroundImage: AssetImage(user.imageUrl),
+              radius: 16.0,
+            ),
+            SizedBox(width: 10.0),
+            Text(
+              user.name,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
         actions: [
           IconButton(icon: Icon(Icons.more_horiz), onPressed: () {}),

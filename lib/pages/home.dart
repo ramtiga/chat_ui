@@ -12,13 +12,20 @@ class HomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final int selectIndex = useProvider(selectMenuProvider).state;
+    SearchBar searchBar;
 
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
         leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
         title: Text("Chat App"),
-        actions: [IconButton(icon: Icon(Icons.search), onPressed: () {})],
+        actions: [
+          IconButton(
+              icon: Icon(Icons.search),
+              onPressed: () {
+                searchBar.getSearchAction(context);
+              })
+        ],
       ),
       body: Column(
         children: [
